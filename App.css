@@ -1,0 +1,74 @@
+.App {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.calendar {
+  margin-top: 20px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calendar-header button {
+  padding: 10px 15px;
+  background: #007baa;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.calendar-header button:hover {
+  background: #0056bb;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+
+.week-day {
+  background: white;
+  padding: 15px;
+  font-weight: bold;
+  border-bottom: 2px solid #eee;
+}
+
+.calendar-day {
+  background: white;
+  min-height: 100px;
+  padding: 5px;
+  text-align: left;
+}
+
+.calendar-day.empty {
+  background: #f9f9f9;
+}
+
+.calendar-day.today {
+  background: #e3f2fc;
+}
+
+.day-number {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.event {
+  padding: 2px 5px;
+  margin: 2px 0;
+  border-radius: 3px;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+}
