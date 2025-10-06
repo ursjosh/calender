@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Practice: Form + To-Do + Layout</title>
+  <style>
+    
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f2f2f2;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 10px 0;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;h
+      gap: 30px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+      padding: 20px;
+    }
+
+    
+    .contact-form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .contact-form label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .contact-form button {
+      background-color: teal;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .contact-form button:hover {
+      background-color: darkcyan;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+
+   
+    .todo-list {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    #taskInput {
+      width: calc(100% - 100px);
+      padding: 10px;
+    }
+
+    #addBtn {
+      padding: 10px;
+      background-color: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    ul#taskList {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 20px;
+    }
+
+    ul#taskList li {
+      padding: 8px;
+      background: #eee;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    ul#taskList button {
+      background-color: crimson;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: white;
+    }
+
+        @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      #taskInput {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      #addBtn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+    <header>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Form</a>
+      <a href="#">To-Do</a>
+    </nav>
+  </header>
+
+  
+  <main>
+        <section class="contact-form">
+      <h2>Contact Us</h2>
+      <form id="contactForm">
+        <label>Name:
+          <input type="text" name="name" id="name" required>
+          <div class="error" id="nameError"></div>
+        </label>
+        <label>Email:
+          <input type="email" name="email" id="email" required>
+          <div class="error" id="emailError"></div>
+        </label>
+        <label>Message:
+          <textarea name="message" id="message" required></textarea>
+          <div class="error" id="messageError"></div>
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+        <aside class="todo-list">
+      <h2>To-Do List</h2>
+      <input type="text" id="taskInput" placeholder="Enter a task">
+      <button id="addBtn">Add Task</button>
+      <ul id="taskList"></ul>
+    </aside>
+  </main>
+
+  <footer>
+    <p>Web Practice &copy; 2025</p>
+  </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+      let valid = true;
+
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const message = document.getElementById('message');
+
+      const nameError = document.getElementById('nameError');
+      const emailError = document.getElementById('emailError');
+      const messageError = document.getElementById('messageError');
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+      nameError.textContent = '';
+      emailError.textContent = '';
+      messageError.textContent = '';
+
+      if (name.value.trim() === '') {
+        nameError.textContent = 'Name is required.';
+        valid = false;
+      }
+
+      if (!emailPattern.test(email.value.trim())) {
+        emailError.textContent = 'Invalid email format.';
+        valid = false;
+      }
+
+      if (message.value.trim() === '') {
+        messageError.textContent = 'Message is required.';
+        valid = false;
+      }
+
+      if (!valid) e.preventDefault();
+    });
+
+        document.getElementById('addBtn').addEventListener('click', function() {
+      const input = document.getElementById('taskInput');
+      const taskText = input.value.trim();
+
+      if (taskText === '') return;
+
+      const li = document.createElement('li');
+      li.textContent = taskText;
+
+      const delBtn = document.createElement('button');
+      delBtn.textContent = 'Delete';
+      delBtn.onclick = () => li.remove();
+
+      li.appendChild(delBtn);
+      document.getElementById('taskList').appendChild(li);
+      input.value = '';
+    });
+  </script>
+
+</body>
+</html>
